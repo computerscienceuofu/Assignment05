@@ -44,6 +44,39 @@ public class SortUtil {
 	}
 	
 	
+	/**This is the insertionSort.  It will be used only when the other searches hit the item threshold.
+	 * 
+	 * @param sortAnagram
+	 * @param comparator
+	 */
+	public static <T> void insertionSort(T[] sortAnagram, Comparator<? super T> comparator) {
+
+		if(sortAnagram == null || comparator == null)
+			return;
+		
+		for (int i = 0; i < sortAnagram.length; i++) {
+			T itemToBeSorted = sortAnagram[i];
+			if(itemToBeSorted == null)
+				continue;
+			int sortIndex = i - 1;
+
+			while (sortIndex >= 0) {
+
+				if (sortAnagram[sortIndex] == null || comparator.compare(itemToBeSorted, sortAnagram[sortIndex]) < 0) {
+					sortAnagram[sortIndex + 1] = sortAnagram[sortIndex];
+					sortAnagram[sortIndex] = itemToBeSorted;
+					sortIndex--;
+				} else {
+					sortAnagram[sortIndex + 1] = itemToBeSorted;
+					break;
+				}
+			}
+
+		}
+
+	}
+	
+	
 	/**This method generates and returns an ArrayList of integers 1 to size in ascending order.
 	 * 
 	 * @param size
