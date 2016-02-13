@@ -16,12 +16,10 @@ public class SortUtil {
      * 
      * Don't forget to include the insertion sort in the program files you submit.
     */
-	public static <T> void mergesort(ArrayList<T>, Comparator<? super T>)
+	public static <T> void mergesort(ArrayList<T> dataSet, Comparator<? super T> Comparator)
 	{
-		for(int i = 0; i < 10; i++)
-		{
-			
-		}
+
+		
 	}
 	
 	
@@ -39,8 +37,9 @@ public class SortUtil {
 	 * In designing a strategy for choosing a pivot, keep in mind that its running time affects 
 	 * the overall running time of the quicksort.
 	*/
-	public static <T> void quicksort(ArrayList<T>, Comparator<? super T>)
+	public static <T> void quicksort(ArrayList<T> dataSet, Comparator<? super T> Comparator)
 	{
+
 		
 	}
 	
@@ -50,7 +49,9 @@ public class SortUtil {
 	 * @param size
 	 * @return
 	 */
-	public static ArrayList<Integer> generateBestCase(int size){
+	public static ArrayList<Integer> generateBestCase(int size)
+	{
+		return null;
 		
 	}
 
@@ -60,7 +61,9 @@ public class SortUtil {
 	 * @param size
 	 * @return
 	 */
-	public static ArrayList<Integer> generateAverageCase(int size){
+	public static ArrayList<Integer> generateAverageCase(int size)
+	{
+		return null;
 		
 	}
 
@@ -70,7 +73,9 @@ public class SortUtil {
 	 * @param size
 	 * @return
 	 */
-	public static ArrayList<Integer> generateWorstCase(int size){
+	public static ArrayList<Integer> generateWorstCase(int size)
+	{
+		return null;
 		
 	}
 	
