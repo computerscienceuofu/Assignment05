@@ -228,9 +228,9 @@ public class SortUtil <T>{
 	 */
 	public static <T> void swap(ArrayList<T> array, int first, int second)
 	{
-		T temp = array.get(first);
+		T tempItem = array.get(first);
 		array.set(first, array.get(second));
-		array.set(second, temp);
+		array.set(second, tempItem);
 		
 	}
 
