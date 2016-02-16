@@ -3,15 +3,11 @@ import java.util.*;
 
 public class SortUtil <T>{
 	
-	private static int threshold = 4;	
-	ArrayList<T> dataSet;
-	ArrayList<T> temp;
-	
-	
+	private static int threshold = 3;	
 	
 	public static <T> void insertionSort(ArrayList<T> dataSet, int left, int right, Comparator<? super T> Comparator)
 	{
-		if(dataSet == null || Comparator == null)
+		if(dataSet == null)
 			return;
 		
 		for (int i = 0; i < dataSet.size(); i++) {
@@ -31,11 +27,8 @@ public class SortUtil <T>{
 					break;
 				}
 			}
-
-		}
-		
+		}		
 	}
-
 
 	/**
      * This method performs a mergesort on the generic ArrayList given as input.
@@ -51,71 +44,99 @@ public class SortUtil <T>{
 	public static <T> void mergesort(ArrayList<T> dataSet, Comparator<? super T> Comparator)
 	{
 		
-	//if (dataSet.size() == 0)
-	//		 throw new NoSuchElementException();
-		int left = 0;
-		int right = dataSet.size();
+		if (dataSet.size() == 0)
+		{
+			 throw new NoSuchElementException();
+		}
 		
-		mergesort(dataSet, left, right, Comparator);
+		ArrayList<T> temp = new ArrayList<T>();		
+		int	left = 0;
+		int right = dataSet.size()-1;
+		for(int x = left; x <= right; x++)
+		{
+			temp.add(dataSet.get(x));
+		}
 		
+		mergesort(dataSet, temp, left, right, Comparator);		
 	}
 	
-	private static <T> void mergesort(ArrayList<T> dataSet, int left, int right, Comparator<? super T> Comparator)
+	private static <T> void mergesort(ArrayList<T> dataSet, ArrayList<T> temp, int left, int right, Comparator<? super T> Comparator)
 	{
-		if (left < right)
-		{
-			int middle = (left + right) / 2;
-			mergesort(dataSet, left, middle, Comparator);
-			mergesort(dataSet, middle + 1, right, Comparator);
-			merge(dataSet, left, middle, right, Comparator);
-		}
-	}
-
-
-	private static <T> void merge(ArrayList<T> dataSet, int left, int mid, int right, Comparator<? super T> Comparator)
-	{
-				
-		int h, i, j, k;
-		ArrayList<T> temp = new ArrayList<T>();
-		h = left;
-		i = left;
-		j = mid +1;
 		
-		while ((h <= mid) && (j <= right))
+		if  ((right-left) <= threshold)
 		{
-			if(Comparator.compare(dataSet.get(h), dataSet.get(j)) <= 0)
-			{
-				temp.set(i, dataSet.get(h));
-				h++;
-			}
-			else
-			{
-				temp.set(i, dataSet.get(j));
-				j++;
-			}
-			i++;
-		}
-		if (h > mid)
-		{
-			for(k = j; k <= right; k++)
-			{
-				temp.set(i, dataSet.get(k));
-				i++;
-			}
+			insertionSort(temp, left, right, Comparator);
 		}
 		else
 		{
-			for(k = h; k <= mid; k++)
-			{
-				temp.set(i, dataSet.get(k));
-				i++;
-			}
-		}
-		for (k = left; k < right; k++)
-		{
-			dataSet.set(k, temp.get(k));
+			int midPoint = (left+right)/2;
+			
+			
+			mergesort(dataSet, temp, left, midPoint, Comparator);
+			mergesort(dataSet, temp, midPoint + 1, right, Comparator);
+			merge(dataSet , temp, left, right, Comparator);
 		}
 	}
+
+
+	private static <T> void merge(ArrayList<T> dataSet, ArrayList<T> temp, int left, int right, Comparator<? super T> Comparator)
+	{
+				
+		int midPoint = (left + right)/2;
+		int i = left;
+		int j = midPoint + 1;
+		int pointer = left;
+		
+		while (i <= midPoint || j <= right)
+		{
+
+			if (i <= midPoint && j > right)
+			{
+				dataSet.set(pointer, temp.get(i));
+				i++;
+				pointer++;
+				continue;
+			}
+
+			if (i > midPoint && j <= right)
+			{
+				dataSet.set(pointer, temp.get(j));
+				j++;
+				pointer++;
+				continue;
+			}
+
+			if (Comparator.compare(temp.get(i), temp.get(j)) < 0)
+			{
+				dataSet.set(pointer, temp.get(i));
+				i++;
+				pointer++;
+				continue;
+			}
+
+			else if(Comparator.compare(temp.get(i), temp.get(j)) > 0)
+			{
+				dataSet.set(pointer, temp.get(j));
+				j++;
+				pointer++;
+				continue;
+			}
+
+			else
+			{
+				dataSet.set(pointer, temp.get(i));
+				i++;
+				pointer++;
+				dataSet.set(pointer, temp.get(j));
+				j++;
+				pointer++;
+				continue;
+			}
+		}
+		for (int k = left; k <= right; k++)
+			temp.set(k, dataSet.get(k));
+	}
+	
 
 	
 	
