@@ -143,12 +143,6 @@ public class SortUtil <T>{
 			temp.set(k, dataSet.get(k));
 	}
 	
-
-	
-	
-	
-	
-	
 	
 	/**This method performs a quicksort on the generic ArrayList given as input.
 	 * 
@@ -164,16 +158,37 @@ public class SortUtil <T>{
 	*/
 	public static <T> void quicksort(ArrayList<T> dataSet, Comparator<? super T> Comparator)
 	{
-
+		int start = 0;
+		int end = dataSet.size() -1;
+		quicksorter(dataSet, start, end, Comparator);
 		
 	}
-	
+		
+	private static <T> void quicksorter(ArrayList<T> dataSet, int start, int end, Comparator<? super T> Comparator) {
+		if (start < end)
+		{
+			int partitionIndex = Partition(dataSet, start, end, Comparator);
+			quicksorter(dataSet, start, partitionIndex - 1, Comparator);
+			quicksorter(dataSet, partitionIndex + 1, end, Comparator);
+		}
+		
+	}
 
-	
-	
-	
-	
-	
+	private static <T> int Partition(ArrayList<T> dataSet, int start, int end, Comparator<? super T> Comparator) {
+		
+		int partitionIndex = start;
+		for(int i = start; i < end; i++)
+		{
+			if(Comparator.compare(dataSet.get(i), dataSet.get(end)) <= 0)
+			{
+				swap(dataSet, i, partitionIndex);
+				partitionIndex++;
+			}
+		}
+		swap(dataSet, partitionIndex, end);
+		return partitionIndex;
+	}
+
 	/**This method generates and returns an ArrayList of integers 1 to size in ascending order.
 	 * 
 	 * @param size
@@ -235,8 +250,5 @@ public class SortUtil <T>{
 		array.set(second, tempItem);
 		
 	}
-
-	
-	
 
 }
