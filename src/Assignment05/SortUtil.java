@@ -5,6 +5,12 @@ public class SortUtil <T>{
 	
 	private static int threshold = 3;	
 	
+	
+	/**This is the insertionSort.  It will be used only when the other searches hit the item threshold.
+	 * 
+	 * @param sortAnagram
+	 * @param comparator
+	 */
 	public static <T> void insertionSort(ArrayList<T> dataSet, int left, int right, Comparator<? super T> Comparator)
 	{
 		if(dataSet == null)
@@ -164,11 +170,7 @@ public class SortUtil <T>{
 	
 
 	
-	/**This is the insertionSort.  It will be used only when the other searches hit the item threshold.
-	 * 
-	 * @param sortAnagram
-	 * @param comparator
-	 */
+	
 	
 	
 	

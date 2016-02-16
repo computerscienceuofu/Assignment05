@@ -15,9 +15,9 @@ public class jUnitTest {
 		    }
 		};
 		
-		ArrayList<Integer> temp = SortUtil.generateBestCase(10);
-		ArrayList<Integer> temp2 = SortUtil.generateWorstCase(10);
-		ArrayList<Integer> temp3 = SortUtil.generateAverageCase(10);
+		ArrayList<Integer> temp = SortUtil.generateBestCase(100);
+		ArrayList<Integer> temp2 = SortUtil.generateWorstCase(100);
+		ArrayList<Integer> temp3 = SortUtil.generateAverageCase(100);
 				
 		SortUtil.mergesort(temp, comp);
 		SortUtil.mergesort(temp2, comp);
