@@ -164,8 +164,11 @@ public class SortUtil <T>{
 	}
 		
 	private static <T> void quicksorter(ArrayList<T> dataSet, int start, int end, Comparator<? super T> Comparator) {
+		
 		if (start < end)
 		{
+		
+			
 			int partitionIndex = Partition(dataSet, start, end, Comparator);
 			quicksorter(dataSet, start, partitionIndex - 1, Comparator);
 			quicksorter(dataSet, partitionIndex + 1, end, Comparator);
@@ -187,6 +190,29 @@ public class SortUtil <T>{
 		swap(dataSet, partitionIndex, end);
 		return partitionIndex;
 	}
+	
+	private static <T> int Partition2(ArrayList<T> dataSet, int start, int end, Comparator<? super T> Comparator) 
+	{
+		
+		T pivot = dataSet.get(start);
+		int leftWall = start;
+		for(int i = start +1; i < end + 1; i++)
+		{
+			if(Comparator.compare(dataSet.get(i), pivot) < 0)
+			{
+				leftWall++;
+				swap(dataSet, i, leftWall);
+			}
+		}
+		swap(dataSet, start, leftWall);
+		return leftWall;
+	}
+
+
+	
+		
+		
+	
 
 	/**This method generates and returns an ArrayList of integers 1 to size in ascending order.
 	 * 
