@@ -49,7 +49,7 @@ public class SortUtil <T>{
 	public static <T> void mergesort(ArrayList<T> dataSet, Comparator<? super T> Comparator)
 	{
 		
-		if (dataSet.size() == 0)
+		if (dataSet.size() == 0 || dataSet == null)
 		{
 			 throw new NoSuchElementException();
 		}
@@ -157,6 +157,11 @@ public class SortUtil <T>{
 	*/
 	public static <T> void quicksort(ArrayList<T> dataSet, Comparator<? super T> Comparator)
 	{
+		if (dataSet.size() == 0 || dataSet == null)
+		{
+			 throw new NoSuchElementException();
+		}
+		
 		int start = 0;
 		int end = dataSet.size() -1;
 		quicksorter(dataSet, start, end, Comparator);
