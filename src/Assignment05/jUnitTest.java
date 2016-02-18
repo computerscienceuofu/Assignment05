@@ -1,24 +1,177 @@
 package Assignment05;
 import java.util.*;
+
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 public class jUnitTest {
 	
-
-	@Test
-	public void test(){
-		
-		
-		//Here's the comparator that is passed in
-		Comparator<Integer> comp = new Comparator<Integer>() {
-		    public int compare(Integer i1, Integer i2) {
-		    	return i1 - i2;
-		    }
+	long startTime = 0;
+	long stopTime = 0;
+	long aveTime = 0;
+	
+	//Here's the comparator that is passed in
+		Comparator<Integer> comp = new Comparator<Integer>() 
+		{
+			public int compare(Integer i1, Integer i2) 
+			{
+			return i1 - i2;
+			}
 		};
 		
-		//size of list to generate
-		int size = 100;
+		//separate comparator - does the same thing as the other, but can be used in the @test
+		private int compare(Integer integer, Integer integer2) {
+			return integer - integer2;
+		}
+
+	@Test
+	public void mergeBestThresholdTest(){
+
+		int size = 10_000;
+		
+		//generates Best, Worst, and Average lists
+		for(int j = 1; j < 200; j*=2) 
+	    { 
+	            SortUtil.changethreshold(j); 
+	            System.out.printf("threshold is at %d", j); 
+	            System.out.println("\n"); 
+	            for(int i = 10; i <= size; i*=10)
+	            	{			
+	            		ArrayList<Integer> mergeBest = SortUtil.generateBestCase(i);			
+	            		startTime = System.nanoTime();
+	            		SortUtil.mergesort(mergeBest, comp);
+	            		stopTime = System.nanoTime();
+	            		aveTime = stopTime - startTime;
+	            		System.out.printf("Time for mergeBest case with size %d is: %d \n", i, aveTime);		
+	            	}
+	            System.out.println("\n");
+	    }
+	}
+
+		
+	@Test
+	public void mergeAverageThresholdTest(){
+
+		int size = 10_000;		
+		for(int j = 1; j < 200; j*=2) 
+	    { 
+	            SortUtil.changethreshold(j); 
+	            System.out.printf("threshold is at %d", j); 
+	            System.out.println("\n"); 
+	            for(int i = 10; i <= size; i*=10)
+	            {
+	            	ArrayList<Integer> mergeAverage = SortUtil.generateAverageCase(i);			
+	            	startTime = System.nanoTime();
+	            	SortUtil.mergesort(mergeAverage, comp);
+	            	stopTime = System.nanoTime();
+	            	aveTime = stopTime - startTime;
+	            	System.out.printf("Time for mergeAverage case with size %d is: %d \n", i, aveTime);
+	            }
+	            System.out.println("\n");
+	    }
+	}
+
+		@Test
+		public void mergeWorstThresholdTest(){
+
+		int size = 10_000;
+		for(int j = 1; j < 200; j*=2) 
+	    { 
+	            SortUtil.changethreshold(j); 
+	            System.out.printf("threshold is at %d", j); 
+	            System.out.println("\n"); 			
+	            for(int i = 10; i <= size; i*=10)
+	            {
+	            	ArrayList<Integer> mergeWorst = SortUtil.generateWorstCase(i);			
+	            	startTime = System.nanoTime();
+	            	SortUtil.mergesort(mergeWorst, comp);
+	            	stopTime = System.nanoTime();
+	            	aveTime = stopTime - startTime;
+	            	System.out.printf("Time for mergeWorst case with size %d is: %d \n", i, aveTime);
+	            }
+	            System.out.println("\n");
+	    }
+		}
+
+		
+		@Test
+		public void quickBestThresholdTest(){
+
+		int size = 10_000;			
+		for(int j = 1; j < 200; j*=2) 
+	    { 
+	            SortUtil.changethreshold(j); 
+	            System.out.printf("threshold is at %d", j); 
+	            System.out.println("\n"); 
+	            for(int i = 10; i <= size; i*=10)
+	            {	
+	            	ArrayList<Integer> quickBest = SortUtil.generateBestCase(i);			
+	            	startTime = System.nanoTime();
+	            	SortUtil.quicksort(quickBest, comp);
+	            	stopTime = System.nanoTime();
+	            	aveTime = stopTime - startTime;
+	            	System.out.printf("Time for quickBest case with size %d is: %d \n", i, aveTime);
+	            }
+	            System.out.println("\n");
+	    }
+		}
+
+		@Test
+		public void quickAverageThresholdTest(){
+
+		int size = 10_000;	
+		for(int j = 1; j < 200; j*=2) 
+	    { 
+	            SortUtil.changethreshold(j); 
+	            System.out.printf("threshold is at %d", j); 
+	            System.out.println("\n"); 		
+	            for(int i = 10; i <= size; i*=10)
+	            {
+	            	ArrayList<Integer> quickAverage = SortUtil.generateAverageCase(i);
+	            	startTime = System.nanoTime();
+	            	SortUtil.quicksort(quickAverage, comp);
+	            	stopTime = System.nanoTime();
+	            	aveTime = stopTime - startTime;
+	            	System.out.printf("Time for quickAverage case with size %d is: %d \n", i, aveTime);
+	            }
+	            System.out.println("\n");
+	    }
+		}
+
+		@Test
+		public void quickWorstThresholdTest(){
+
+		int size = 10_000;	
+		for(int j = 1; j < 200; j*=2) 
+	    { 
+	            SortUtil.changethreshold(j); 
+	            System.out.printf("threshold is at %d", j); 
+	            System.out.println("\n"); 				
+	            for(int i = 10; i <= size; i*=10)
+	            {
+	            	ArrayList<Integer> quickWorst = SortUtil.generateWorstCase(i);
+	            	startTime = System.nanoTime();
+	            	SortUtil.quicksort(quickWorst, comp);
+	            	stopTime = System.nanoTime();
+	            	aveTime = stopTime - startTime;
+	            	System.out.printf("Time for quickWorst case with size %d is: %d \n",i, aveTime);
+	            }
+	            System.out.println("\n");
+	    }
+		}
+		
+		
+		@Test
+		public void sortsAreWorkingProperlyTest(){
+
+		int size = 10_000;	
+	         
+		//changes threshold back to 3
+	    SortUtil.changethreshold(3); 
+	
+		//size of list to generate		
+		size = 100;
 		
 		//generates Best, Worst, and Average lists
 		ArrayList<Integer> mergeBest = SortUtil.generateBestCase(size);
@@ -60,9 +213,6 @@ public class jUnitTest {
 				
 	}
 
-	//separate comparator - does the same thing as the other, but can be used in the @test
-	private int compare(Integer integer, Integer integer2) {
-		return integer - integer2;
-	}
+	
 
 }

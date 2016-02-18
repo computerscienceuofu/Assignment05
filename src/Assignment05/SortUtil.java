@@ -5,7 +5,6 @@ public class SortUtil <T>{
 	
 	private static int threshold = 3;	
 	
-	
 	/**This is the insertionSort.  It will be used only when the other searches hit the item threshold.
 	 * 
 	 * @param sortAnagram
@@ -240,14 +239,19 @@ public class SortUtil <T>{
 	 * @param <T>
 	 * 
 	 * @param array
-	 * @param first
-	 * @param second
+	 * @param first - position to swap with second
+	 * @param second - position to swap with first
 	 */
 	public static <T> void swap(ArrayList<T> array, int first, int second)
 	{
 		T tempItem = array.get(first);
 		array.set(first, array.get(second));
 		array.set(second, tempItem);
+		
+	}
+
+	public static void changethreshold(int i) {
+		threshold = i;
 		
 	}
 
