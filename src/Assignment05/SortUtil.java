@@ -4,6 +4,27 @@ import java.util.*;
 public class SortUtil <T>{
 	
 	private static int threshold = 3;	
+	private static int pivotType = 1;
+	
+	
+	
+	//Integer Comparator just in case its needed for the tests, although it would have to be put in the main method and sent through.
+	Comparator<Integer> comp = new Comparator<Integer>() 
+	{
+		public int compare(Integer i1, Integer i2) 
+		{
+		return i1 - i2;
+		}
+	};	
+
+	//String Comparator just in case its needed for the tests, although it would have to be put in the main method and sent through
+	Comparator<String> stringComparator = new Comparator<String>() 
+	{
+		public int compare(String i1, String i2) 
+		{
+		return i1.compareTo(i2);
+		}
+	};	
 	
 	/**This is the insertionSort.  It will be used only when the other searches hit the item threshold.
 	 * 
@@ -65,6 +86,16 @@ public class SortUtil <T>{
 		mergesort(dataSet, temp, left, right, Comparator);		
 	}
 	
+	
+	/**
+	 * This method checks if the array is less than or equal to the threshold.  If so, it sends into the insertion sort.
+	 * If not, it will start creating smaller partitions and merge them. 
+	 * @param dataSet - The main arraylist
+	 * @param temp - the temp arraylist
+	 * @param left - left starting poing
+	 * @param right - right starting poing
+	 * @param Comparator - the comparator method
+	 */
 	private static <T> void mergesort(ArrayList<T> dataSet, ArrayList<T> temp, int left, int right, Comparator<? super T> Comparator)
 	{
 		
@@ -83,7 +114,14 @@ public class SortUtil <T>{
 		}
 	}
 
-
+/**
+ * Here is where the merging of the lists occurs.
+ * @param dataSet - original arraylist
+ * @param temp - temporary arraylist
+ * @param left - left starting point
+ * @param right - right ending point
+ * @param Comparator - Generic Comparator
+ */
 	private static <T> void merge(ArrayList<T> dataSet, ArrayList<T> temp, int left, int right, Comparator<? super T> Comparator)
 	{
 				
@@ -168,6 +206,14 @@ public class SortUtil <T>{
 		
 	}
 		
+	
+	/**
+	 * This method creates the partitions and then recursively sends through again
+	 * @param dataSet - original arraylist
+	 * @param start - starting value
+	 * @param end - ending value
+	 * @param Comparator - Generic Comparator
+	 */
 	private static <T> void quicksorter(ArrayList<T> dataSet, int start, int end, Comparator<? super T> Comparator) {
 		
 		if (start < end)
@@ -181,43 +227,88 @@ public class SortUtil <T>{
 		
 	}
 
+	/**
+	 * Here is where the 3 partitions take place.  It uses a switch statement which can cycle through the various partitions.
+	 * @param dataSet - main arraylist
+	 * @param start - starting point
+	 * @param end - ending point
+	 * @param Comparator - Generic Comparator
+	 * @return
+	 */
 	private static <T> int Partition(ArrayList<T> dataSet, int start, int end, Comparator<? super T> Comparator) {
+		int partitionIndex = 0;
 		
-		int partitionIndex = start;
-		for(int i = start; i < end; i++)
+		switch(pivotType)
 		{
-			if(Comparator.compare(dataSet.get(i), dataSet.get(end)) <= 0)
+		
+		case 1:
+		
+			T pivot = dataSet.get(start);
+			partitionIndex = start;
+			for(int i = start +1; i < end + 1; i++)
 			{
-				swap(dataSet, i, partitionIndex);
-				partitionIndex++;
+				if(Comparator.compare(dataSet.get(i), pivot) < 0)
+				{
+					partitionIndex++;
+					swap(dataSet, i, partitionIndex);
+				}
 			}
+			swap(dataSet, start, partitionIndex);
+			return partitionIndex;
+		
+		case 2:
+		
+			int i = start, j = end;
+			
+			T pivot2 = dataSet.get((int) Math.random() * end);
+			
+			while(i <= j)
+			{
+				while(Comparator.compare(dataSet.get(i), pivot2) < 0)
+				{
+				i++;
+				}
+			
+				while(Comparator.compare(dataSet.get(j), pivot2) > 0)
+				{
+					j--;
+				}
+				if(i <= j)
+				{
+					T temp = dataSet.get(i);
+					swap(dataSet, i, j);
+					dataSet.set(j, temp);
+					i++;
+					j--;
+				}
+				partitionIndex =  i;		
+				break;
+			}
+		
+		
+		case 3:
+		
+			partitionIndex = start;
+			for(int k = start; k < end; k++)
+			{
+				if(Comparator.compare(dataSet.get(k), dataSet.get(end)) <= 0)
+				{
+					swap(dataSet, k, partitionIndex);
+					partitionIndex++;
+				}
+			}
+			swap(dataSet, partitionIndex, end);
+			
+		
+		
 		}
-		swap(dataSet, partitionIndex, end);
+		
 		return partitionIndex;
+		
+		
+		
 	}
-	
-	private static <T> int Partition2(ArrayList<T> dataSet, int start, int end, Comparator<? super T> Comparator) 
-	{
 		
-		T pivot = dataSet.get(start);
-		int leftWall = start;
-		for(int i = start +1; i < end + 1; i++)
-		{
-			if(Comparator.compare(dataSet.get(i), pivot) < 0)
-			{
-				leftWall++;
-				swap(dataSet, i, leftWall);
-			}
-		}
-		swap(dataSet, start, leftWall);
-		return leftWall;
-	}
-
-
-	
-		
-		
-	
 
 	/**This method generates and returns an ArrayList of integers 1 to size in ascending order.
 	 * 
@@ -283,6 +374,11 @@ public class SortUtil <T>{
 
 	public static void changethreshold(int i) {
 		threshold = i;
+		
+	}
+
+	public static void changePivotType(int j) {
+		pivotType = j;
 		
 	}
 

@@ -28,22 +28,23 @@ public class jUnitTest {
 	@Test
 	public void mergeBestThresholdTest(){
 
-		int size = 10_000;
+		int size = 12101;
 		
 		//generates Best, Worst, and Average lists
 		for(int j = 1; j < 200; j*=2) 
 	    { 
+				
 	            SortUtil.changethreshold(j); 
-	            System.out.printf("threshold is at %d", j); 
+	            System.out.printf("mergeBest threshold is at %d", j); 
 	            System.out.println("\n"); 
-	            for(int i = 10; i <= size; i*=10)
+	            for(int i = 100; i <= size; i+=2000)
 	            	{			
-	            		ArrayList<Integer> mergeBest = SortUtil.generateBestCase(i);			
+	            		ArrayList<Integer> mergeBest = SortUtil.generateBestCase(i);
 	            		startTime = System.nanoTime();
 	            		SortUtil.mergesort(mergeBest, comp);
 	            		stopTime = System.nanoTime();
 	            		aveTime = stopTime - startTime;
-	            		System.out.printf("Time for mergeBest case with size %d is: %d \n", i, aveTime);		
+	            		System.out.printf("%d, %d \n", i, aveTime);		
 	            	}
 	            System.out.println("\n");
 	    }
@@ -53,42 +54,164 @@ public class jUnitTest {
 	@Test
 	public void mergeAverageThresholdTest(){
 
-		int size = 10_000;		
+		int size = 12101;		
 		for(int j = 1; j < 200; j*=2) 
 	    { 
 	            SortUtil.changethreshold(j); 
-	            System.out.printf("threshold is at %d", j); 
+	            System.out.printf("mergeAverage threshold is at %d", j); 
 	            System.out.println("\n"); 
-	            for(int i = 10; i <= size; i*=10)
+	            for(int i = 100; i <= size; i+=2000)
 	            {
 	            	ArrayList<Integer> mergeAverage = SortUtil.generateAverageCase(i);			
 	            	startTime = System.nanoTime();
 	            	SortUtil.mergesort(mergeAverage, comp);
 	            	stopTime = System.nanoTime();
 	            	aveTime = stopTime - startTime;
-	            	System.out.printf("Time for mergeAverage case with size %d is: %d \n", i, aveTime);
+	            	System.out.printf("%d, %d \n", i, aveTime);
 	            }
 	            System.out.println("\n");
 	    }
 	}
+	
+	@Test
+	public void mergeBestThresh()
+	{
+
+		ArrayList<Integer> mergeAverage = SortUtil.generateAverageCase(10000);	
+		System.out.println("MergeSort Best Threshold Test");
+		for(int j = 1; j < 2000; j+=25) 
+	    { 
+	            
+	           // System.out.printf("mergeAverage threshold is at %d", j); 
+	            //System.out.println("\n"); 
+	            
+	            ArrayList<Integer> mergeAverage2 = new ArrayList<Integer>();
+	            for(int i = 0; i < mergeAverage.size(); i++)
+	            {
+	            	mergeAverage2.add(mergeAverage.get(i));
+	            }
+	      	         
+	            SortUtil.changethreshold(j);
+	            startTime = System.nanoTime();
+	            SortUtil.mergesort(mergeAverage2, comp);
+	            stopTime = System.nanoTime();
+	            aveTime = stopTime - startTime;
+	            System.out.printf("%d, %d \n",j, aveTime);
+	            
+	    }
+	}
+	
+	@Test
+	public void quickBestPivotTest(){
+
+	int size = 10_011;	
+    System.out.printf("quickAverage pivot type"); 
+    System.out.println("\n"); 
+    ArrayList<Integer> quickAverage = SortUtil.generateAverageCase(10);	
+    ArrayList<Integer> quickAverage2 = SortUtil.generateAverageCase(100);	
+    ArrayList<Integer> quickAverage3 = SortUtil.generateAverageCase(1000);	
+    ArrayList<Integer> quickAverage4 = SortUtil.generateAverageCase(10000);	
+    ArrayList<Integer> quickAverage5 = SortUtil.generateAverageCase(100000);	
+    
+	for(int j = 1; j <= 3; j++) 
+    { 
+            SortUtil.changePivotType(j); 
+
+            ArrayList<Integer> quickAverages = new ArrayList<Integer>();
+            for(int i = 0; i < quickAverage.size(); i++)
+            {
+            	quickAverages.add(quickAverage.get(i));
+            }          
+            			
+            	startTime = System.nanoTime();
+            	SortUtil.quicksort(quickAverages, comp);
+            	stopTime = System.nanoTime();
+            	aveTime = stopTime - startTime;
+            	System.out.printf("%d, %d \n", j, aveTime);
+            
+            System.out.println("\n");
+            
+        
+
+            ArrayList<Integer> quickAverages22 = new ArrayList<Integer>();
+            for(int i = 0; i < quickAverage2.size(); i++)
+            {
+            	quickAverages22.add(quickAverage2.get(i));
+            }          
+            			
+            	startTime = System.nanoTime();
+            	SortUtil.quicksort(quickAverages22, comp);
+            	stopTime = System.nanoTime();
+            	aveTime = stopTime - startTime;
+            	System.out.printf("%d, %d \n", j, aveTime);
+            
+            System.out.println("\n");
+            
+            
+            ArrayList<Integer> quickAverages33 = new ArrayList<Integer>();
+            for(int i = 0; i < quickAverage3.size(); i++)
+            {
+            	quickAverages33.add(quickAverage3.get(i));
+            }          
+            			
+            	startTime = System.nanoTime();
+            	SortUtil.quicksort(quickAverages33, comp);
+            	stopTime = System.nanoTime();
+            	aveTime = stopTime - startTime;
+            	System.out.printf("%d, %d \n", j, aveTime);
+            
+            System.out.println("\n");
+            
+            ArrayList<Integer> quickAverages44 = new ArrayList<Integer>();
+            for(int i = 0; i < quickAverage4.size(); i++)
+            {
+            	quickAverages44.add(quickAverage4.get(i));
+            }          
+            			
+            	startTime = System.nanoTime();
+            	SortUtil.quicksort(quickAverages44, comp);
+            	stopTime = System.nanoTime();
+            	aveTime = stopTime - startTime;
+            	System.out.printf("%d, %d \n", j, aveTime);
+            
+            System.out.println("\n");
+            
+            
+            ArrayList<Integer> quickAverages55 = new ArrayList<Integer>();
+            for(int i = 0; i < quickAverage5.size(); i++)
+            {
+            	quickAverages55.add(quickAverage5.get(i));
+            }          
+            			
+            	startTime = System.nanoTime();
+            	SortUtil.quicksort(quickAverages55, comp);
+            	stopTime = System.nanoTime();
+            	aveTime = stopTime - startTime;
+            	System.out.printf("%d, %d \n", j, aveTime);
+            
+            System.out.println("\n");
+    }
+	}
+	
+
 
 		@Test
 		public void mergeWorstThresholdTest(){
 
-		int size = 10_000;
+		int size = 12101;
 		for(int j = 1; j < 200; j*=2) 
 	    { 
 	            SortUtil.changethreshold(j); 
-	            System.out.printf("threshold is at %d", j); 
+	            System.out.printf("mergeWorst threshold is at %d", j); 
 	            System.out.println("\n"); 			
-	            for(int i = 10; i <= size; i*=10)
+	            for(int i = 100; i <= size; i+=2000)
 	            {
 	            	ArrayList<Integer> mergeWorst = SortUtil.generateWorstCase(i);			
 	            	startTime = System.nanoTime();
 	            	SortUtil.mergesort(mergeWorst, comp);
 	            	stopTime = System.nanoTime();
 	            	aveTime = stopTime - startTime;
-	            	System.out.printf("Time for mergeWorst case with size %d is: %d \n", i, aveTime);
+	            	System.out.printf("%d, %d \n", i, aveTime);
 	            }
 	            System.out.println("\n");
 	    }
@@ -98,20 +221,20 @@ public class jUnitTest {
 		@Test
 		public void quickBestThresholdTest(){
 
-		int size = 10_000;			
-		for(int j = 1; j < 200; j*=2) 
+		int size = 10_011;			
+		for(int j = 1; j <= 3; j++) 
 	    { 
-	            SortUtil.changethreshold(j); 
-	            System.out.printf("threshold is at %d", j); 
+	            SortUtil.changePivotType(j); 
+	            System.out.printf("quickBest pivot type is %d", j); 
 	            System.out.println("\n"); 
-	            for(int i = 10; i <= size; i*=10)
+	            for(int i = 10; i <= size; i+=2000)
 	            {	
 	            	ArrayList<Integer> quickBest = SortUtil.generateBestCase(i);			
 	            	startTime = System.nanoTime();
 	            	SortUtil.quicksort(quickBest, comp);
 	            	stopTime = System.nanoTime();
 	            	aveTime = stopTime - startTime;
-	            	System.out.printf("Time for quickBest case with size %d is: %d \n", i, aveTime);
+	            	System.out.printf("%d, %d \n", i, aveTime);
 	            }
 	            System.out.println("\n");
 	    }
@@ -119,21 +242,20 @@ public class jUnitTest {
 
 		@Test
 		public void quickAverageThresholdTest(){
-
-		int size = 10_000;	
-		for(int j = 1; j < 200; j*=2) 
-	    { 
-	            SortUtil.changethreshold(j); 
-	            System.out.printf("threshold is at %d", j); 
-	            System.out.println("\n"); 		
-	            for(int i = 10; i <= size; i*=10)
+			int size = 10_011;
+			for(int j = 1; j <= 3; j++) 
+		    { 
+		            SortUtil.changePivotType(j); 
+		            System.out.printf("quickAverage pivot type is %d", j); 
+		            System.out.println("\n"); 
+	            for(int i = 10; i <= size; i+=2000)
 	            {
 	            	ArrayList<Integer> quickAverage = SortUtil.generateAverageCase(i);
 	            	startTime = System.nanoTime();
 	            	SortUtil.quicksort(quickAverage, comp);
 	            	stopTime = System.nanoTime();
 	            	aveTime = stopTime - startTime;
-	            	System.out.printf("Time for quickAverage case with size %d is: %d \n", i, aveTime);
+	            	System.out.printf("%d, %d \n", i, aveTime);
 	            }
 	            System.out.println("\n");
 	    }
@@ -141,21 +263,20 @@ public class jUnitTest {
 
 		@Test
 		public void quickWorstThresholdTest(){
-
-		int size = 10_000;	
-		for(int j = 1; j < 200; j*=2) 
-	    { 
-	            SortUtil.changethreshold(j); 
-	            System.out.printf("threshold is at %d", j); 
-	            System.out.println("\n"); 				
-	            for(int i = 10; i <= size; i*=10)
+			int size = 10_011;
+			for(int j = 1; j <= 3; j++) 
+		    { 
+		            SortUtil.changePivotType(j); 
+		            System.out.printf("quickWorst pivot type is %d", j); 
+		            System.out.println("\n"); 			
+	            for(int i = 10; i <= size; i+=2000)
 	            {
 	            	ArrayList<Integer> quickWorst = SortUtil.generateWorstCase(i);
 	            	startTime = System.nanoTime();
 	            	SortUtil.quicksort(quickWorst, comp);
 	            	stopTime = System.nanoTime();
 	            	aveTime = stopTime - startTime;
-	            	System.out.printf("Time for quickWorst case with size %d is: %d \n",i, aveTime);
+	            	System.out.printf("%d, %d \n",i, aveTime);
 	            }
 	            System.out.println("\n");
 	    }
@@ -165,7 +286,7 @@ public class jUnitTest {
 		@Test
 		public void sortsAreWorkingProperlyTest(){
 
-		int size = 10_000;	
+			int size = 12101;	
 	         
 		//changes threshold back to 3
 	    SortUtil.changethreshold(3); 
